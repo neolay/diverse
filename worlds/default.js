@@ -21,7 +21,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js"
     ];
 
     Constants.DefaultCards = [
@@ -93,6 +93,7 @@ export function init(Constants) {
                 translation: [-4, 0.4, -10],
                 dataScale: [0.7, 0.7, 0.7],
                 shadow: true,
+                behaviorModules: ["SimpleSpin"],
             }
         },
         {
