@@ -63,7 +63,7 @@ export function init(Constants) {
                 dataScale: [2, 2, 2],
                 shadow: true,
                 sound: "./assets/sounds/Meow.wav",
-                behaviorModules: ["SpriteSound", "Throb"]
+                behaviorModules: ["SpriteSound", "Throb"],
             }
         },
         {
@@ -81,7 +81,18 @@ export function init(Constants) {
                 depth: 0.05,
                 shadow: true,
                 behaviorModules: ["URLLink"],
-                cardURL: "https://github.com/dynalab-live"
+                cardURL: "https://github.com/dynalab-live",
+            }
+        },
+        {
+            card: {
+                name: "windmill",
+                type: "3d",
+                dataLocation: "./assets/3D/windmill.glb.zip",
+                layers: ["pointer"],
+                translation: [-4, 0.4, -10],
+                dataScale: [0.7, 0.7, 0.7],
+                shadow: true,
             }
         },
         {
