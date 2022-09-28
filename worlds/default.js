@@ -21,7 +21,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js", "text3D.js"
     ];
 
     Constants.DefaultCards = [
@@ -115,6 +115,23 @@ export function init(Constants) {
                 color: 0xffffff,
                 depth: 0.05,
                 fullBright: true,
+            }
+        },
+        {
+            card: {
+                name: "welcome message",
+                text: "Welcome",
+                color: 0xF0493E,
+                frameColor: 0x444444,
+                weight: 'bold',
+                font: "helvetiker",
+                fullBright: true,
+                bevelEnabled: false,
+                translation: [-8, -1, -10],
+                rotation: [0, Math.PI / 4, 0],
+                scale: [2, 2, 2],
+                behaviorModules: ["Text3D", "Throb"],
+                shadow: true,
             }
         },
     ];
