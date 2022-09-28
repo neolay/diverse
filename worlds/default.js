@@ -26,7 +26,14 @@ export function init(Constants) {
 
     Constants.DefaultCards = [
         {
-
+            card: {
+                name: "entrance",
+                type: "object",
+                translation: [0, 0.4, 2],
+                spawn: "default",
+            }
+        },
+        {
             card: {
                 name: "world model",
                 type: "3d",
