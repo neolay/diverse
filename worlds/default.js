@@ -21,7 +21,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js"
     ];
 
     Constants.DefaultCards = [
@@ -68,7 +68,7 @@ export function init(Constants) {
         },
         {
             card: {
-                name: "image card",
+                name: "dynalab",
                 translation: [0, 0.4, -10],
                 scale: [4, 4, 4],
                 type: "2d",
@@ -82,6 +82,27 @@ export function init(Constants) {
                 shadow: true,
                 behaviorModules: ["URLLink"],
                 cardURL: "https://github.com/dynalab-live"
+            }
+        },
+        {
+            card: {
+                name: "scratch cat flying",
+                translation: [12, 0.70, -10.24],
+                rotation: [0, -Math.PI / 2, 0],
+                behaviorModules: ["Bounce"],
+                scale: [3, 3, 3],
+                width: 1,
+                height: 1,
+                layers: ["pointer"],
+                type: "2d",
+                dataLocation: "./assets/SVG/full-circle.svg",
+                textureType: "dynamic",
+                textureWidth: 1024,
+                textureHeight: 1024,
+                frameColor: 0x888888,
+                color: 0xffffff,
+                depth: 0.05,
+                fullBright: true,
             }
         },
     ];
