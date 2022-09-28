@@ -70,6 +70,7 @@ export function init(Constants) {
                 shadow: true,
                 sound: "./assets/sounds/Meow.wav",
                 behaviorModules: ["SpriteSound", "Throb"],
+                throbTimes: 1,
             }
         },
         {
@@ -138,6 +139,7 @@ export function init(Constants) {
                 scale: [2, 2, 2],
                 behaviorModules: ["Text3D", "Throb"],
                 shadow: true,
+                throbTimes: 3,
             }
         },
     ];

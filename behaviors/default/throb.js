@@ -29,7 +29,8 @@ class ThrobActor {
         let now = this.now();
         let offset = now - this.throbStartTime;
 
-        if (offset >= 1000) {
+        let throbTimes = this._cardData.throbTimes;
+        if (offset >= 1000 * throbTimes) {
             this.scaleTo(this.startScale);
             delete this.throbStartTime;
             return;
