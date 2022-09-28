@@ -21,7 +21,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "lights.js"
+        "lights.js", "sound.js"
     ];
 
     Constants.DefaultCards = [
@@ -62,6 +62,8 @@ export function init(Constants) {
                 translation: [0, -0.27, -8.5],
                 dataScale: [2, 2, 2],
                 shadow: true,
+                sound: "./assets/sounds/Meow.wav",
+                behaviorModules: ["SpriteSound"]
             }
         },
     ];
