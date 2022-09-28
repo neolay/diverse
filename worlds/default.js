@@ -26,17 +26,20 @@ export function init(Constants) {
 
     Constants.DefaultCards = [
         {
+
             card: {
-                name:"world model",
-                layers: ["walk"],
+                name: "world model",
                 type: "3d",
+                dataLocation: "./assets/3D/artgallery_042122.glb.zip",
+                dataScale: [1, 1, 1],
                 singleSided: true,
                 shadow: true,
-                translation:[0, -1.7, 0],
+                layers: ["walk"],
+                translation: [0, -1.7, 0],
                 placeholder: true,
-                placeholderSize: [400, 0.1, 400],
-                placeholderColor: 0x808080,
-                placeholderOffset: [0, 0, 0],
+                placeholderSize: [100, 0.01, 100],
+                placeholderColor: 0xcccccc,
+                placeholderOffset: [0, -1.7, 0],
             }
         },
         {
