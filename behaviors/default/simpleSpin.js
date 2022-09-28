@@ -1,9 +1,10 @@
 class SpinningActor {
     setup() {
-        this.spinning = false; // start without spinning
+        this.spinning = true; // start with spinning
         this.angle = 0; // the initial angle
         this.spinSpeed = 0.01; // how fast will we spin (in radians)
         this.addEventListener("pointerDown", "toggle");
+        this.step();
     }
 
     step() {
@@ -12,7 +13,7 @@ class SpinningActor {
         }
         this.future(20).step();
         this.angle += this.spinSpeed;
-        this.set({rotation: Microverse.q_euler(0, this.angle, 0)});
+        this.set({rotation: Microverse.q_euler(this.angle, Math.PI / 2, 0)});
     }
 
     toggle() {
