@@ -53,5 +53,16 @@ export function init(Constants) {
                 dataType: "jpg",
             }
         },
+        {
+            card: {
+                name: "scratch cat",
+                type: "3d",
+                dataLocation: "./assets/3D/scratch_cat.glb.zip",
+                layers: ["pointer"],
+                translation: [0, -0.27, -8.5],
+                dataScale: [2, 2, 2],
+                shadow: true,
+            }
+        },
     ];
 }
