@@ -21,7 +21,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js"
     ];
 
     Constants.DefaultCards = [
@@ -59,11 +59,29 @@ export function init(Constants) {
                 type: "3d",
                 dataLocation: "./assets/3D/scratch_cat.glb.zip",
                 layers: ["pointer"],
-                translation: [0, -0.27, -8.5],
+                translation: [4.3, -0.27, -8.5],
                 dataScale: [2, 2, 2],
                 shadow: true,
                 sound: "./assets/sounds/Meow.wav",
                 behaviorModules: ["SpriteSound", "Throb"]
+            }
+        },
+        {
+            card: {
+                name: "image card",
+                translation: [0, 0.4, -10],
+                scale: [4, 4, 4],
+                type: "2d",
+                textureType: "image",
+                textureLocation: "35hx21Njx2Qq88GJL9vtaSGIhcAE1Ty9AlN52EAjdykUXUFBRUYPGhpTXFlQRhtARhtWR1pEQFBBG1xaGkAaT2BBQmV6T3NAemYEflxSeG9cAAYMTXNxcg0FBxpcWhtWR1pEQFBBG1hcVkdaQ1BHRlAbWVpWVFlRUENRUFNUQFlBGnRMQVBScQRYdn0FV1RGUVBBeHYEAwRiVkFbUmFNTQRscEUGRF8AbEBxAloaUVRBVBpgc0VXbGVnZnJGf2dsdmQGY35ScllXcGJqGAJ-Aw0YU1B_XUUHW3d_XANG",
+                fullBright: true,
+                frameColor: 0xcccccc,
+                color: 0xbbbbbb,
+                cornerRadius: 0.05,
+                depth: 0.05,
+                shadow: true,
+                behaviorModules: ["URLLink"],
+                cardURL: "https://github.com/dynalab-live"
             }
         },
     ];
