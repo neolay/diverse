@@ -2,7 +2,6 @@ node_modules
 /dist
 .DS_Store
 .vercel
-apiKey.js
 /three/**/*.js
 package-lock.json
 *.swp
