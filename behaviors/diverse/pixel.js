@@ -46,7 +46,7 @@ class MbitDisplayActor {
             for (let y = 0; y < this.pixelY; y++) {
                 const led = this.createCard({
                     translation: [(2 * x + 1) / 2 * ledWidth + spacingCol * (x + 1) - boardWidth / 2,
-                        -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, boardDepth],
+                        -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, (boardDepth + ledDepth) / 2],
                     name: `led-${x}-${y}`,
                     behaviorModules: ["LED"],
                     parent: this,
@@ -209,7 +209,7 @@ class BagDisplayPawn {
                     new THREE.BoxGeometry(ledWidth, ledHeight, ledDepth, 2, 2, 2),
                     new THREE.MeshBasicMaterial({color: 0x000000, toneMapped: false}));
                 const translation = [(2 * x + 1) / 2 * ledWidth + spacingCol * (x + 1) - boardWidth / 2,
-                    -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, boardDepth];
+                    -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, (boardDepth + ledDepth) / 2];
                 led.position.set(translation[0], translation[1], translation[2]);
                 board.add(led);
                 this.leds.push(led);
@@ -330,7 +330,7 @@ class PixelDisplayPawn {
                     new THREE.BoxGeometry(ledWidth, ledHeight, ledDepth, 2, 2, 2),
                     new THREE.MeshBasicMaterial({color: 0x000000, toneMapped: false}));
                 const translation = [(2 * x + 1) / 2 * ledWidth + spacingCol * (x + 1) - boardWidth / 2,
-                    -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, boardDepth];
+                    -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, (boardDepth + ledDepth) / 2];
                 led.position.set(translation[0], translation[1], translation[2]);
                 board.add(led);
                 this.leds.push(led);
@@ -554,7 +554,7 @@ class StripDisplayPawn {
                     new THREE.BoxGeometry(ledWidth, ledHeight, ledDepth, 2, 2, 2),
                     new THREE.MeshBasicMaterial({color: 0x000000, toneMapped: false}));
                 const translation = [(2 * x + 1) / 2 * ledWidth + spacingCol * (x + 1) - boardWidth / 2,
-                    -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, boardDepth];
+                    -(2 * y + 1) / 2 * ledHeight - spacingRow * (y + 1) + boardHeight / 2, (boardDepth + ledDepth) / 2];
                 led.position.set(translation[0], translation[1], translation[2]);
                 board.add(led);
                 this.leds.push(led);
