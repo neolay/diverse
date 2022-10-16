@@ -5,7 +5,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/diverse";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js", "text3D.js", "pixel.js", "forklift.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js", "text3D.js", "pixel.js", "forklift.js", "platform.js"
     ];
 
     Constants.DefaultCards = [
@@ -115,6 +115,14 @@ export function init(Constants) {
                 shadow: true,
                 singleSided: true,
                 type: "3d",
+            }
+        },
+        {
+            card: {
+                name: "move cuboid",
+                translation: [-8, -1.55, 13.5],
+                behaviorModules: ["MoveCuboid"],
+                type: "object",
             }
         },
     ];
