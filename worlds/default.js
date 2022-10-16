@@ -5,7 +5,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/diverse";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js", "text3D.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "bounce.js", "simpleSpin.js", "text3D.js", "replaceWorld.js"
     ];
 
     Constants.DefaultCards = [
@@ -13,7 +13,7 @@ export function init(Constants) {
             card: {
                 name: "entrance",
                 type: "object",
-                translation: [0, 0.4, 2],
+                translation: [0, 0.4, 4],
                 spawn: "default",
             }
         },
@@ -60,8 +60,9 @@ export function init(Constants) {
         {
             card: {
                 name: "dynalab",
-                translation: [0, 0.4, -10],
-                scale: [4, 4, 4],
+                translation: [-12.1, 1.5, -10.18],
+                rotation: [0, Math.PI / 2, 0],
+                scale: [3, 3, 3],
                 type: "2d",
                 textureType: "image",
                 textureLocation: "35hx21Njx2Qq88GJL9vtaSGIhcAE1Ty9AlN52EAjdykUXUFBRUYPGhpTXFlQRhtARhtWR1pEQFBBG1xaGkAaT2BBQmV6T3NAemYEflxSeG9cAAYMTXNxcg0FBxpcWhtWR1pEQFBBG1hcVkdaQ1BHRlAbWVpWVFlRUENRUFNUQFlBGnRMQVBScQRYdn0FV1RGUVBBeHYEAwRiVkFbUmFNTQRscEUGRF8AbEBxAloaUVRBVBpgc0VXbGVnZnJGf2dsdmQGY35ScllXcGJqGAJ-Aw0YU1B_XUUHW3d_XANG",
@@ -124,6 +125,25 @@ export function init(Constants) {
                 behaviorModules: ["Text3D", "Throb"],
                 shadow: true,
                 throbTimes: 3,
+            }
+        },
+        {
+            card: {
+                name: "pixel world card",
+                translation: [0, 0.4, -10],
+                scale: [4, 4, 4],
+                behaviorModules: ["ReplaceWorld"],
+                replaceWorldTargetURL: "?world=pixel",
+                layers: ["pointer"],
+                type: "2d",
+                textureType: "image",
+                textureLocation: "./assets/images/pixel-world.png",
+                fullBright: true,
+                frameColor: 0xcccccc,
+                color: 0xffffff,
+                cornerRadius: 0.05,
+                depth: 0.05,
+                shadow: true,
             }
         },
     ];
