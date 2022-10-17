@@ -55,7 +55,7 @@ export function init(Constants) {
                 scale: [3.1, 3.1, 3.1],
                 pixelX: 5,
                 pixelY: 5,
-            },
+            }
         },
         {
             card: {
@@ -69,7 +69,7 @@ export function init(Constants) {
                 scale: [1, 1, 1],
                 pixelX: 16,
                 pixelY: 16,
-            },
+            }
         },
         {
             card: {
@@ -83,7 +83,7 @@ export function init(Constants) {
                 scale: [1.75, 1.75, 1.75],
                 pixelX: 9,
                 pixelY: 9,
-            },
+            }
         },
         {
             card: {
@@ -99,7 +99,7 @@ export function init(Constants) {
                 pixelY: 1,
                 ledWidth: 0.15,
                 ledHeight: 0.15,
-            },
+            }
         },
         {
             card: {
@@ -123,6 +123,35 @@ export function init(Constants) {
                 translation: [-8, -1.55, 13.5],
                 behaviorModules: ["MoveCuboid"],
                 type: "object",
+            }
+        },
+        {
+            card: {
+                name: "elevated stage",
+                behaviorModules: ["ElevatedStage"],
+                layers: ["pointer"],
+                type: "object",
+                translation: [5.694537082265905, -1.5985832680931038, 11.283709368434067],
+                shadow: true,
+                scale: [1, 1, 1],
+                rotation: [0, Math.PI, 0],
+            }
+        },
+        {
+            card: {
+                name: "dynalab",
+                translation: [12, 0.6, 10.77],
+                rotation: [0, -Math.PI / 2, 0],
+                scale: [3, 3, 3],
+                type: "2d",
+                textureType: "image",
+                textureLocation: "3BGpBXkpV9coWx6zMWorilvkUn4P856H2wYmCwKITE8wKjY2MjF4bW0kKy4nMWw3MWwhMC0zNyc2bCstbTdtOBc2NRINOAQ3DRFzCSslDxgrd3F7OgQGBXpycG0rLWwhMC0zNyc2bC8rITAtNCcwMSdsLi0hIy4mJzQmJyQjNy42bXMwFTIBACwUCRUYNyUGCB0dexQVLDUgATQFOjFyNilwKytwIHAdOwsTCg9tJiM2I20bCXEVDS8KAXEIDRc6czMrBHouFgcSJhcYKgp6DBcVdTUnNhoHCgRxBwcX",
+                fullBright: true,
+                frameColor: 0xcccccc,
+                color: 0xbbbbbb,
+                cornerRadius: 0.1,
+                depth: 0.05,
+                shadow: true,
             }
         },
     ];
