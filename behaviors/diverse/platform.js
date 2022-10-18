@@ -222,6 +222,7 @@ class SprayActor {
         this.running = false;
         this.spray();
         this.addEventListener("pointerDown", "toggle");
+        this.subscribe("command", "command2", this.toggle);
     }
 
     spray() {
@@ -318,6 +319,61 @@ class SprayPawn {
             this.obj.receiveShadow = this.actor._cardData.shadow;
             this.shape.add(this.obj);
         }
+    }
+}
+
+class ControlButtonActor {
+    setup() {
+        this.pressed = false;
+        this.addEventListener("pointerTap", "press");
+    }
+
+    press() {
+        this.pressed = !this.pressed;
+        const tile = this.queryCards().filter((c) => c.name === "tile-1-1")[0];
+        this.publish(tile.id, "command1");
+        this.publish("command", "command2");
+        this.say("pressed");
+    }
+}
+
+class ControlButtonPawn {
+    setup() {
+        this.makeButton();
+        this.addEventListener("pointerMove", "nop");
+        this.addEventListener("pointerEnter", "hilite");
+        this.addEventListener("pointerLeave", "unhilite");
+        this.listen("pressed", "setColor");
+    }
+
+    setColor() {
+        let baseColor = !this.actor.pressed
+            ? (this.entered ? 0xeeeeee : 0xcccccc)
+            : 0x22ff22;
+
+        if (this.shape.children[0] && this.shape.children[0].material) {
+            this.shape.children[0].material.color.setHex(baseColor);
+        }
+    }
+
+    makeButton() {
+        [...this.shape.children].forEach((c) => this.shape.remove(c));
+
+        const geometry = new Microverse.THREE.CylinderGeometry(0.15, 0.15, 0.1, 32);
+        const material = new Microverse.THREE.MeshStandardMaterial({color: 0xcccccc, metalness: 0.8});
+        const button = new Microverse.THREE.Mesh(geometry, material);
+        this.shape.add(button);
+        this.setColor();
+    }
+
+    hilite() {
+        this.entered = true;
+        this.setColor();
+    }
+
+    unhilite() {
+        this.entered = false;
+        this.setColor();
     }
 }
 
@@ -449,6 +505,7 @@ class PhysicsDemoActor {
         }
 
         this.listen("translating", "translated");
+        this.subscribe(this.id, "command1", this.toggle);
     }
 
     translated() {
@@ -588,6 +645,11 @@ export default {
             name: "Spray",
             actorBehaviors: [SprayActor],
             pawnBehaviors: [SprayPawn]
+        },
+        {
+            name: "ControlButton",
+            actorBehaviors: [ControlButtonActor],
+            pawnBehaviors: [ControlButtonPawn]
         },
         {
             name: "MoveCuboid",

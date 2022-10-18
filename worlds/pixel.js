@@ -195,6 +195,17 @@ export function init(Constants) {
         },
         {
             card: {
+                name: "control button",
+                translation: [5, 0.6, 17],
+                rotation: [Math.PI / 2, 0, 0],
+                scale: [3, 3, 3],
+                behaviorModules: ["ControlButton"],
+                shadow: true,
+                type: "object",
+            }
+        },
+        {
+            card: {
                 name: "dynalab",
                 translation: [12, 0.6, 10.77],
                 rotation: [0, -Math.PI / 2, 0],
