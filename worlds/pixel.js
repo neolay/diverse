@@ -121,20 +121,54 @@ export function init(Constants) {
             card: {
                 name: "move cuboid",
                 translation: [-8, -1.55, 13.5],
-                behaviorModules: ["MoveCuboid"],
+                behaviorModules: ["MoveCuboid", "DebugRender"],
                 type: "object",
             }
         },
         {
             card: {
                 name: "elevated stage",
-                behaviorModules: ["ElevatedStage"],
+                behaviorModules: ["ElevatedStage", "DebugRender"],
                 layers: ["pointer"],
                 type: "object",
                 translation: [5.694537082265905, -1.5985832680931038, 11.283709368434067],
                 shadow: true,
                 scale: [1, 1, 1],
                 rotation: [0, Math.PI, 0],
+            },
+            id: "stage",
+        },
+        {
+            card: {
+                name: "cuboid base",
+                type: "object",
+                layers: ["pointer"],
+                behaviorModules: ["Physics", "PhysicsDemo"],
+                physicsSize: [1, 0.2, 1],
+                color: 0xff0000,
+                physicsShape: "cuboid",
+                physicsType: "dynamic",
+                shadow: true,
+                translation: [0, 1, 0],
+                physicsRender: false,
+                parent: "stage",
+            },
+            id: "cuboid",
+        },
+        {
+            card: {
+                name: "samba glasses",
+                layers: ["pointer"],
+                animationClipIndex: 0,
+                animationStartTime: 549887,
+                dataLocation: "3cc4ywUoRo62Cyj8hcs7tuwOmqQP5ZGyj93MyhNsydMoCxcXExBZTEwFCg8GEE0WEE0AEQwSFgYXTQoMTBZMGTYXFDMsGSUWLDBSKAoELjkKVlBaGyUnJFtTUUwKDE0AEQwSFgYXTQ4KABEMFQYREAZNDwwAAg8HBhUHBgUCFg8XTFRaKgYaOSQmWhoKETsMJBIEGQcLLRYyAAwtB1NVCSg5EVdXVFckNAE8NVdMBwIXAkwIB1cUCwkNKE5OASIbNjU6ChMSExQALgEVNyo3LycZOwICAhYOIScqGwsy",
+                dataScale: [0.015, 0.015, 0.015],
+                fileName: "/SambaGlasses.fbx",
+                modelType: "fbx",
+                shadow: true,
+                singleSided: true,
+                type: "3d",
+                parent: "cuboid",
             }
         },
         {
@@ -152,6 +186,25 @@ export function init(Constants) {
                 cornerRadius: 0.1,
                 depth: 0.05,
                 shadow: true,
+            }
+        },
+        {
+            card: {
+                name: "dynalab",
+                translation: [-12.1, 1.7, -10.18],
+                rotation: [0, Math.PI / 2, 0],
+                scale: [4, 4, 4],
+                type: "2d",
+                textureType: "image",
+                textureLocation: "35hx21Njx2Qq88GJL9vtaSGIhcAE1Ty9AlN52EAjdykUXUFBRUYPGhpTXFlQRhtARhtWR1pEQFBBG1xaGkAaT2BBQmV6T3NAemYEflxSeG9cAAYMTXNxcg0FBxpcWhtWR1pEQFBBG1hcVkdaQ1BHRlAbWVpWVFlRUENRUFNUQFlBGnRMQVBScQRYdn0FV1RGUVBBeHYEAwRiVkFbUmFNTQRscEUGRF8AbEBxAloaUVRBVBpgc0VXbGVnZnJGf2dsdmQGY35ScllXcGJqGAJ-Aw0YU1B_XUUHW3d_XANG",
+                fullBright: true,
+                frameColor: 0xcccccc,
+                color: 0xbbbbbb,
+                cornerRadius: 0.05,
+                depth: 0.05,
+                shadow: true,
+                behaviorModules: ["URLLink"],
+                cardURL: "https://github.com/dynalab-live",
             }
         },
     ];

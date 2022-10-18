@@ -1,5 +1,10 @@
 class ElevatedStageActor {
     setup() {
+        if (!this.physicsWorld) {
+            const physicsManager = this.service("PhysicsManager");
+            this.setPhysicsWorld(physicsManager.createWorld({timeStep: 20}, this.id));
+        }
+
         this.generateTile();
     }
 
@@ -211,8 +216,7 @@ class MoveCuboidActor {
     setup() {
         if (!this.physicsWorld) {
             let physicsManager = this.service("PhysicsManager");
-            // console.log("new global physics world");
-            this.setPhysicsWorld(physicsManager.createGlobalWorld({timeStep: 20}, this.id));
+            this.setPhysicsWorld(physicsManager.createWorld({timeStep: 20}, this.id));
         }
 
         this.removeObjects();
@@ -294,12 +298,6 @@ class MoveCuboidActor {
 
 class PhysicsDemoActor {
     setup() {
-        if (!this.physicsWorld) {
-            const physicsManager = this.service("PhysicsManager");
-            // console.log("new global physics world");
-            this.setPhysicsWorld(physicsManager.createGlobalWorld({timeStep: 20}, this.id));
-        }
-
         const physicsShape = this._cardData.physicsShape || "cuboid";
         const physicsType = this._cardData.physicsType || "positionBased";
 
@@ -387,7 +385,7 @@ class PhysicsDemoActor {
 class PhysicsDemoPawn {
     setup() {
         // [...this.shape.children].forEach((c) => this.shape.remove(c));
-        if (this.shape.children.length === 0) {
+        if (this.shape.children.length === 0 && this.actor._cardData.physicsRender !== false) {
             let physicsShape = this.actor._cardData.physicsShape;
             if (physicsShape === "cuboid") {
                 let s = this.actor._cardData.physicsSize || [1, 1, 1];
@@ -416,6 +414,51 @@ class PhysicsDemoPawn {
     }
 }
 
+class DebugRenderPawn {
+    setup() {
+        this.isDebugRender = false;
+        let material = new Microverse.THREE.LineBasicMaterial({
+            color: 0xffffff,
+            vertexColors: true,
+        });
+        let geometry = new Microverse.THREE.BufferGeometry();
+        this.lines = new Microverse.THREE.LineSegments(geometry, material);
+        this.shape.add(this.lines);
+
+        this.subscribe("input", "tDown", this.show);
+        this.subscribe("input", "xDown", this.hide);
+    }
+
+    show() {
+        this.isDebugRender = true;
+        this.lines.visible = true;
+        this.debugRender();
+    }
+
+    hide() {
+        this.isDebugRender = false;
+        this.lines.visible = false;
+    }
+
+    debugRender() {
+        if (!this.isDebugRender) {
+            return;
+        }
+        if (this.actor.physicsWorld.world) {
+            let buffers = this.actor.physicsWorld.world.debugRender();
+            this.lines.geometry.setAttribute(
+                "position",
+                new THREE.BufferAttribute(buffers.vertices, 3),
+            );
+            this.lines.geometry.setAttribute(
+                "color",
+                new THREE.BufferAttribute(buffers.colors, 4),
+            );
+        }
+        this.future(20).debugRender();
+    }
+}
+
 export default {
     modules: [
         {
@@ -436,7 +479,11 @@ export default {
             name: "PhysicsDemo",
             actorBehaviors: [PhysicsDemoActor],
             pawnBehaviors: [PhysicsDemoPawn]
-        }
+        },
+        {
+            name: "DebugRender",
+            pawnBehaviors: [DebugRenderPawn]
+        },
     ]
 }
 
