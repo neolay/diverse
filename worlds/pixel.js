@@ -173,6 +173,28 @@ export function init(Constants) {
         },
         {
             card: {
+                translation: [5.694537082265905, -1.496254626075859, 4.3],
+                layers: ["pointer"],
+                behaviorModules: ["Spray", "DebugRender"],
+                name: "spray",
+                color: 13421772,
+                shadow: true,
+                type: "object",
+            }
+        },
+        {
+            card: {
+                translation: [-1.3, -1.496254626075859, 11.283709368434067],
+                layers: ["pointer"],
+                behaviorModules: ["Spray", "DebugRender"],
+                name: "spray",
+                color: 13421772,
+                shadow: true,
+                type: "object",
+            }
+        },
+        {
+            card: {
                 name: "dynalab",
                 translation: [12, 0.6, 10.77],
                 rotation: [0, -Math.PI / 2, 0],

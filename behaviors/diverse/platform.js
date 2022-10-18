@@ -98,15 +98,15 @@ class TileDisplayActor {
     }
 
     randomColor() {
-        let h = Math.random();
-        let s = 0.8;
-        let v = 0.8;
-        let r, g, b, i, f, p, q, t;
-        i = Math.floor(h * 6);
-        f = h * 6 - i;
-        p = v * (1 - s);
-        q = v * (1 - f * s);
-        t = v * (1 - (1 - f) * s);
+        const h = Math.random();
+        const s = 0.8;
+        const v = 0.8;
+        const i = Math.floor(h * 6);
+        const f = h * 6 - i;
+        const p = v * (1 - s);
+        const q = v * (1 - f * s);
+        const t = v * (1 - (1 - f) * s);
+        let r, g, b;
         switch (i % 6) {
             case 0:
                 r = v;
@@ -212,10 +212,119 @@ class TileDisplayPawn {
     }
 }
 
+class SprayActor {
+    setup() {
+        if (!this.physicsWorld) {
+            const physicsManager = this.service("PhysicsManager");
+            this.setPhysicsWorld(physicsManager.createWorld({timeStep: 20}, this.id));
+        }
+
+        this.running = false;
+        this.spray();
+        this.addEventListener("pointerDown", "toggle");
+    }
+
+    spray() {
+        if (!this.running) {
+            return;
+        }
+
+        const t = [0, 0, 0];
+        const r = Math.random() * Math.PI * 2;
+        const x = Math.cos(r) * 0.016 * (Math.random() * 0.6 + 0.5);
+        const z = Math.sin(r) * 0.016 * (Math.random() * 0.6 + 0.5);
+        const initTr = [t[0] + x * 2, t[1] + 0.3, t[2] + z * 2];
+
+        this.createCard({
+            type: "object",
+            layers: ["pointer"],
+            translation: initTr,
+            behaviorModules: ["Physics", "PhysicsDemo"],
+            physicsSize: 0.2,
+            physicsShape: "ball",
+            physicsType: "dynamic",
+            phsicsLinvel: [0, 8, 0],
+            color: this.randomColor(),
+            shadow: true,
+            parent: this,
+        });
+
+        this.future(150).spray();
+    }
+
+    toggle() {
+        this.running = !this.running;
+        if (this.running) {
+            this.spray();
+        }
+    }
+
+    randomColor() {
+        const h = Math.random();
+        const s = 0.8;
+        const v = 0.8;
+        const i = Math.floor(h * 6);
+        const f = h * 6 - i;
+        const p = v * (1 - s);
+        const q = v * (1 - f * s);
+        const t = v * (1 - (1 - f) * s);
+        let r, g, b;
+        switch (i % 6) {
+            case 0:
+                r = v;
+                g = t;
+                b = p;
+                break;
+            case 1:
+                r = q;
+                g = v;
+                b = p;
+                break;
+            case 2:
+                r = p;
+                g = v;
+                b = t;
+                break;
+            case 3:
+                r = p;
+                g = q;
+                b = v;
+                break;
+            case 4:
+                r = t;
+                g = p;
+                b = v;
+                break;
+            case 5:
+                r = v;
+                g = p;
+                b = q;
+                break;
+        }
+        return Math.round(b * 255) | Math.round(g * 255) << 8 | Math.round(r * 255) << 16;
+    }
+}
+
+class SprayPawn {
+    setup() {
+        [...this.shape.children].forEach((c) => this.shape.remove(c));
+
+        if (this.shape.children.length === 0) {
+            const s = 0.2;
+            const geometry = new Microverse.THREE.BoxGeometry(s, s, s);
+            const material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
+            this.obj = new Microverse.THREE.Mesh(geometry, material);
+            this.obj.castShadow = this.actor._cardData.shadow;
+            this.obj.receiveShadow = this.actor._cardData.shadow;
+            this.shape.add(this.obj);
+        }
+    }
+}
+
 class MoveCuboidActor {
     setup() {
         if (!this.physicsWorld) {
-            let physicsManager = this.service("PhysicsManager");
+            const physicsManager = this.service("PhysicsManager");
             this.setPhysicsWorld(physicsManager.createWorld({timeStep: 20}, this.id));
         }
 
@@ -300,6 +409,7 @@ class PhysicsDemoActor {
     setup() {
         const physicsShape = this._cardData.physicsShape || "cuboid";
         const physicsType = this._cardData.physicsType || "positionBased";
+        const phsicsLinvel = this._cardData.phsicsLinvel;
 
         let kinematic;
         if (physicsType === "positionBased") {
@@ -308,6 +418,7 @@ class PhysicsDemoActor {
             kinematic = Microverse.Physics.RigidBodyDesc.kinematicVelocityBased();
         } else if (physicsType === "dynamic") {
             kinematic = Microverse.Physics.RigidBodyDesc.dynamic();
+            if (phsicsLinvel) kinematic.setLinvel(...phsicsLinvel);
         }
         this.call("Physics$PhysicsActor", "createRigidBody", kinematic);
 
@@ -347,7 +458,7 @@ class PhysicsDemoActor {
     }
 
     tick() {
-        let r = this.rigidBody;
+        const r = this.rigidBody;
         const t = r.translation();
         const v = [t.x, t.y, t.z];
         this.set({translation: v});
@@ -355,7 +466,7 @@ class PhysicsDemoActor {
     }
 
     movePlatform() {
-        let r = this.rigidBody;
+        const r = this.rigidBody;
         if (!this.running) {
             r.setLinvel({x: 0, y: 0, z: 0}, true);
             return;
@@ -377,7 +488,7 @@ class PhysicsDemoActor {
     }
 
     jolt() {
-        let r = this.rigidBody;
+        const r = this.rigidBody;
         r.applyImpulse({x: 0, y: 1, z: 0}, true);
     }
 }
@@ -386,25 +497,25 @@ class PhysicsDemoPawn {
     setup() {
         // [...this.shape.children].forEach((c) => this.shape.remove(c));
         if (this.shape.children.length === 0 && this.actor._cardData.physicsRender !== false) {
-            let physicsShape = this.actor._cardData.physicsShape;
+            const physicsShape = this.actor._cardData.physicsShape;
             if (physicsShape === "cuboid") {
-                let s = this.actor._cardData.physicsSize || [1, 1, 1];
-                let geometry = new Microverse.THREE.BoxGeometry(...s);
-                let material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
+                const s = this.actor._cardData.physicsSize || [1, 1, 1];
+                const geometry = new Microverse.THREE.BoxGeometry(...s);
+                const material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
                 this.obj = new Microverse.THREE.Mesh(geometry, material);
                 this.obj.castShadow = this.actor._cardData.shadow;
                 this.obj.receiveShadow = this.actor._cardData.shadow;
             } else if (physicsShape === "cylinder") {
-                let s = this.actor._cardData.physicsSize || [1, 1];
-                let geometry = new Microverse.THREE.CylinderGeometry(s[0], s[0], s[1], 20);
-                let material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
+                const s = this.actor._cardData.physicsSize || [1, 1];
+                const geometry = new Microverse.THREE.CylinderGeometry(s[0], s[0], s[1], 20);
+                const material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
                 this.obj = new Microverse.THREE.Mesh(geometry, material);
                 this.obj.castShadow = this.actor._cardData.shadow;
                 this.obj.receiveShadow = this.actor._cardData.shadow;
             } else if (physicsShape === "ball") {
-                let s = this.actor._cardData.physicsSize || 1;
-                let geometry = new Microverse.THREE.SphereGeometry(s / 2, 32, 16);
-                let material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
+                const s = this.actor._cardData.physicsSize || 1;
+                const geometry = new Microverse.THREE.SphereGeometry(s / 2, 32, 16);
+                const material = new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xff0000});
                 this.obj = new Microverse.THREE.Mesh(geometry, material);
                 this.obj.castShadow = this.actor._cardData.shadow;
                 this.obj.receiveShadow = this.actor._cardData.shadow;
@@ -416,14 +527,16 @@ class PhysicsDemoPawn {
 
 class DebugRenderPawn {
     setup() {
-        this.isDebugRender = false;
-        let material = new Microverse.THREE.LineBasicMaterial({
+        this.isDebugRender = true;
+        const material = new Microverse.THREE.LineBasicMaterial({
             color: 0xffffff,
             vertexColors: true,
         });
-        let geometry = new Microverse.THREE.BufferGeometry();
+        const geometry = new Microverse.THREE.BufferGeometry();
         this.lines = new Microverse.THREE.LineSegments(geometry, material);
+        this.lines.visible = false;
         this.shape.add(this.lines);
+        this.debugRender();
 
         this.subscribe("input", "tDown", this.show);
         this.subscribe("input", "xDown", this.hide);
@@ -445,7 +558,7 @@ class DebugRenderPawn {
             return;
         }
         if (this.actor.physicsWorld.world) {
-            let buffers = this.actor.physicsWorld.world.debugRender();
+            const buffers = this.actor.physicsWorld.world.debugRender();
             this.lines.geometry.setAttribute(
                 "position",
                 new THREE.BufferAttribute(buffers.vertices, 3),
@@ -470,6 +583,11 @@ export default {
             name: "TileDisplay",
             actorBehaviors: [TileDisplayActor],
             pawnBehaviors: [TileDisplayPawn]
+        },
+        {
+            name: "Spray",
+            actorBehaviors: [SprayActor],
+            pawnBehaviors: [SprayPawn]
         },
         {
             name: "MoveCuboid",
