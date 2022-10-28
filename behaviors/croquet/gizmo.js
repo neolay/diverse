@@ -68,14 +68,14 @@ class GizmoActor {
         let a = avatar.translation;
 
         let offsets = [
-            [ 2,  2,  2],
-            [-2,  2,  2],
-            [ 2, -2,  2],
-            [-2, -2,  2],
-            [ 2,  2, -2],
-            [-2,  2, -2],
-            [ 2, -2, -2],
-            [-2, -2, -2]
+            [ 2,  1,  2],
+            [-2,  1,  2],
+            [ 2, -1,  2],
+            [-2, -1,  2],
+            [ 2,  1, -2],
+            [-2,  1, -2],
+            [ 2, -1, -2],
+            [-2, -1, -2]
         ];
 
         let locals = offsets.map((o) => v3_add(t, o));
@@ -91,6 +91,7 @@ class GizmoActor {
                 min = i;
             }
         }
+
         return offsets[min];
     }
 
@@ -101,10 +102,19 @@ class GizmoActor {
 
         let t = this.closestCorner(this.creatorId);
 
+        this.dataLocation = "3ryPlwPIvSHXjABwnuJjrMQYPp1JH2OnghLGR_cdAbCEGgYGAgFIXV0UGx4XAVwHAVwRAB0DBxcGXBsdXQddNRYkEAseOwEzGSMRMCoWQTUKEwQLBSc5JSsrQF0bHVwRAB0DBxcGXB8bEQAdBBcAARddBRckQ0E8AEUcRwABPTExOhMCHEMeNENFIAglOitFNBg0OjNGPiYQIl81Sl0WEwYTXUMeCgYrHDc7HkECPScbJxYKOSE6RCgXK0YgFwYgCzAYPioRCkEkAEYVLRU";
+
         this.propertySheetButton = this.createCard({
             name: "property sheet button",
-            behaviorModules: ["GizmoPropertySheetButton"],
-            type: "object",
+            dataLocation: this.dataLocation,
+            fileName: "/prop-plain.svg",
+            modelType: "svg",
+            shadow: true,
+            singleSided: true,
+            scale: [0.5, 0.5, 0.5],
+            type: "2d",
+            fullBright: true,
+            behaviorModules: ["GizmoPropertySheetButton", "Billboard"],
             parent: this,
             noSave: true,
             translation: t,
@@ -313,6 +323,13 @@ class GizmoPawn {
         if (!this.interval) {
             this.interval = setInterval(() => this.checkInteraction(), 1000);
         }
+
+        let assetManager = this.service("AssetManager").assetManager;
+        let dataLocation = this.actor.dataLocation;
+        this.getBuffer(dataLocation).then((buffer) => {
+            assetManager.setCache(dataLocation, buffer, "global");
+        });
+
         this.subscribe(this.id, "interaction", "interaction");
     }
 
@@ -330,6 +347,22 @@ class GizmoPawn {
         this.lastTime = this.now();
     }
 
+    forceOnTop(obj3d) {
+        obj3d.traverse((obj) => {
+            if (obj.geometry) {
+                obj.renderOrder = 10000; // draw last
+                let m = obj.material;
+                let mat;
+                mat = Array.isArray(m) ? m : [m];
+                mat.forEach(m => {
+                    m.opacity = 0.9999;
+                    m.transparent = true;
+                    m.depthTest = false;
+                    m.depthWrite = false;
+                });
+            }
+        });
+    }
 }
 
 class GizmoAxisActor {
@@ -360,12 +393,14 @@ class GizmoAxisPawn {
     }
 
     makeAxisHelper(isMine) {
+        this.axis = this.actor._cardData.axis;
         let arrow = new Microverse.THREE.ArrowHelper(
-            new Microverse.THREE.Vector3(...this.actor._cardData.axis),
+            new Microverse.THREE.Vector3(...this.axis),
             new Microverse.THREE.Vector3(0, 0, 0),
             3,
             isMine ? this.originalColor : 0xffffff
         );
+        this.parent.call("Gizmo$GizmoPawn", "forceOnTop", arrow);
         return arrow;
     }
 
@@ -377,7 +412,12 @@ class GizmoAxisPawn {
 
         // avatar.addFirstResponder("pointerMove", {shiftKey: true}, this);
         avatar.addFirstResponder("pointerMove", {}, this);
-        let {THREE, m4_invert, v3_normalize, v3_sub, m4_identity} = Microverse;
+
+        let {THREE, m4_invert, v3_normalize, v3_sub, m4_identity, v3_cross} = Microverse;
+        // ensure the plane is parallel to the arrow
+        let direction = event.ray.direction;
+        let up = v3_cross(this.axis, direction);
+        direction = v3_cross(up, this.axis);
 
         let parentGlobal = target._parent ? target._parent.global : m4_identity();
         this.gizmoParentInvert = m4_invert(parentGlobal);
@@ -388,7 +428,7 @@ class GizmoAxisPawn {
         this.intersectionPlane = new Microverse.THREE.Plane();
 
         this.intersectionPlane.setFromNormalAndCoplanarPoint(
-            new THREE.Vector3(...v3_sub([0, 0, 0], v3_normalize(event.ray.direction))),
+            new THREE.Vector3(...v3_sub([0, 0, 0], v3_normalize(direction))),
             new Microverse.THREE.Vector3(...this.gizmoDragStart)
         );
 
@@ -425,6 +465,7 @@ class GizmoAxisPawn {
         }
         // console.log(nextPosition);
         this.publish(this.parent.actor.id, "translateTarget", nextPosition);
+        this.publish(this.parent.id, "interaction");
         // this.set({translation: nextPosition})
     }
 
@@ -494,6 +535,7 @@ class GizmoRotorPawn {
 
         const mat = new Microverse.THREE.LineBasicMaterial({color, toneMapped: false, linewidth: 2});
         const circle = new Microverse.THREE.LineLoop(geo, mat);
+        this.parent.call("Gizmo$GizmoPawn", "forceOnTop", circle);
         return circle;
     }
 
@@ -708,6 +750,8 @@ class GizmoScalerPawn {
 
         group.add(line);
         group.add(box);
+
+        this.parent.call("Gizmo$GizmoPawn", "forceOnTop", group);
         return group;
     }
 
@@ -794,29 +838,34 @@ class GizmoPropertySheetButtonPawn {
     setup() {
         let isMine = this.parent?.actor.creatorId === this.viewId;
 
-        this.makeButton();
+        this.subscribe(this.id, "2dModelLoaded", "svgLoaded");
+        this.parent.call("Gizmo$GizmoPawn", "forceOnTop", this.shape);
         if (isMine) {
             this.addEventListener("pointerMove", "nop");
             this.addEventListener("pointerEnter", "hilite");
             this.addEventListener("pointerLeave", "unhilite");
-            this.addEventListener("pointerDown", "openPropertySheet");
+            this.addEventListener("pointerTap", "openPropertySheet");
+            // effectively prevent propagation
+            this.addEventListener("pointerDown", "nop");
+            this.addEventListener("pointerUp", "nop");
         }
     }
 
-    makeButton() {
-        [...this.shape.children].forEach((c) => this.shape.remove(c));
-
-        let geometry = new Microverse.THREE.SphereGeometry(0.15, 16, 16);
-        let material = new Microverse.THREE.MeshStandardMaterial({color: 0xcccccc, metalness: 0.8});
-        let button = new Microverse.THREE.Mesh(geometry, material);
-        this.shape.add(button);
-        this.setColor();
+    svgLoaded() {
+        if (this.shape.children[0]) {
+            this.parent.call("Gizmo$GizmoPawn", "forceOnTop", this.shape.children[0]);
+        }
     }
 
     setColor() {
-        let baseColor = this.entered ? 0xeeeeee : 0xcccccc;
-        if (this.shape.children[0] && this.shape.children[0].material) {
-            this.shape.children[0].material.color.setHex(baseColor);
+        let svg = this.shape.children[0];
+        let backdrop;
+        if (svg) {
+            backdrop = svg.children[0];
+        }
+        let baseColor = this.entered ? 0x888888 : 0x4a4a4a;
+        if (backdrop.material && backdrop.material[0]) {
+            backdrop.material && backdrop.material[0].color.setHex(baseColor);
         }
     }
 
@@ -835,6 +884,7 @@ class GizmoPropertySheetButtonPawn {
     openPropertySheet(event) {
         let avatar = Microverse.GetPawn(event.avatarId);
         this.publish(this.actor.id, "openPropertySheet", {avatar: event.avatarId, distance: avatar.targetDistance});
+        this.destroy();
     }
 }
 
