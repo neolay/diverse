@@ -1,11 +1,17 @@
 class CrystalballActor {
     setup() {
+        this.isMagic = false;
         this.update();
+        this.addEventListener("pointerDown", this.toggle);
     }
 
     update() {
         this.say("update");
         this.future(50).update();
+    }
+
+    toggle() {
+        this.isMagic = !this.isMagic;
     }
 }
 
@@ -140,7 +146,7 @@ class CrystalballPawn {
             material
         );
 
-        this.pointLight = new THREE.PointLight(0x00abff);
+        this.pointLight = new THREE.PointLight(0x00abff, 0);
         this.crystalball.add(this.pointLight);
 
         this.shape.add(this.crystalball);
@@ -149,9 +155,14 @@ class CrystalballPawn {
     }
 
     update() {
-        this.crystalball.material.uniforms.colorA.value = new THREE.Color(0x023a56);
-        this.crystalball.material.uniforms.colorB.value = new THREE.Color(0x00abff);
-        this.crystalball.material.uniforms.time.value += 0.005;
+        if (this.actor.isMagic) {
+            this.crystalball.material.uniforms.colorA.value = new THREE.Color(0x023a56);
+            this.crystalball.material.uniforms.colorB.value = new THREE.Color(0x00abff);
+            this.crystalball.material.uniforms.time.value += 0.005;
+        } else {
+            this.crystalball.material.uniforms.colorA.value = new THREE.Color(0x404040);
+            this.crystalball.material.uniforms.colorB.value = new THREE.Color(0x808080);
+        }
     }
 }
 
