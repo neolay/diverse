@@ -3,6 +3,7 @@
 
 // assets
 // the wizard asset is adapted from the "Wizard and his Book." (https://skfb.ly/6TAoM) by muppe5 which is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+// the pumpkin asset is from "Aggressor_pumpkin" (https://skfb.ly/69TC6) by yaroslav_volkov which is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 
 export function init(Constants) {
     Constants.AvatarNames = [
@@ -145,6 +146,22 @@ export function init(Constants) {
                 dataScale: [0.13108587160180496, 0.13108587160180496, 0.13108587160180496],
                 fileName: "/wizard.glb.zip",
                 modelType: "zip",
+                shadow: true,
+                singleSided: true,
+                type: "3d",
+            }
+        },
+        {
+            card: {
+                name: "pumpkin",
+                translation: [-3.026831498911883, -1.6614725599499458, -1.5255427803810993],
+                scale: [0.22340502125775152, 0.22340502125775152, 0.22340502125775152],
+                rotation: [0, -0.8673283198783881, 0, 0.4977364619323491],
+                layers: ["pointer"],
+                dataLocation: "3tOCKBlDPuEB4JFZF0LdO7rSCHS4JgnhfhRjisSgrMhUHAAABAdOW1sSHRgRB1oBB1oXBhsFAREAWh0bWwFbDiEAAyQ7DjIBOydFPx0TOS4dQUdNDDIwM0xERlsdG1oXBhsFAREAWhkdFwYbAhEGBxFaGBsXFRgQEQIQERIVARgAWxwnDi45FiMDGUMlABc5Dh4FPiYsASczPhtGEjIBRzs8Nw4tRS4OEzgNOExbEBUAFVsQNjIzBwUODEQXAR0ZIyYaGAMWMDEjMT0jEiADHjYRBS5NQBExLAAnIytE",
+                dataScale: [1.293715301899795, 1.293715301899795, 1.293715301899795],
+                fileName: "/pumpkin.glb.zip",
+                modelType: "glb",
                 shadow: true,
                 singleSided: true,
                 type: "3d",
