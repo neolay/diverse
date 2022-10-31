@@ -6,7 +6,7 @@ class CrystalballActor {
     }
 
     update() {
-        this.say("update");
+        this.say("update", this.now());
         this.future(50).update();
     }
 
@@ -154,14 +154,16 @@ class CrystalballPawn {
         this.listen("update", this.update);
     }
 
-    update() {
+    update(t) {
         if (this.actor.isMagic) {
             this.crystalball.material.uniforms.colorA.value = new THREE.Color(0x023a56);
             this.crystalball.material.uniforms.colorB.value = new THREE.Color(0x00abff);
             this.crystalball.material.uniforms.time.value += 0.005;
+            this.pointLight.intensity = 0.5 + 0.5 * Math.sin(t * 0.001) * Math.cos(t * 0.01);
         } else {
             this.crystalball.material.uniforms.colorA.value = new THREE.Color(0x404040);
             this.crystalball.material.uniforms.colorB.value = new THREE.Color(0x808080);
+            this.pointLight.intensity = 0;
         }
     }
 }

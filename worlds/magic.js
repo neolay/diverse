@@ -62,11 +62,13 @@ export function init(Constants) {
         },
         {
             card: {
-                name: "crystal ball",
+                name: "magic crystal ball",
                 type: "object",
-                behaviorModules: ["Crystalball"],
+                behaviorModules: ["Crystalball", "SpriteSound"],
                 layers: ["pointer"],
                 translation: [1.0461403218736771, -1.0203506245253555, -0.8025336339532938],
+                sound: "./assets/sounds/Mystery.aac",
+                loop: true,
             },
         },
         {

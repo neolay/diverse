@@ -1,23 +1,31 @@
-class SpriteSoundActor {
-    setup() {
-        this.audio = new Audio(this._cardData.sound);
-        this.listen("play", "playSound");
-    }
-
-    playSound() {
-        if (this.audio) {
-            this.audio.play();
-        }
-    }
-}
-
 class SpriteSoundPawn {
     setup() {
-        this.addEventListener("pointerDown", "playSound");
+        this.audio = new Audio(this.actor._cardData.sound);
+        this.audio.loop = this.actor._cardData.loop || false;
+        this.addEventListener("pointerDown", "update");
     }
 
-    playSound() {
-        this.say("play");
+    update() {
+        if (this.playing) {
+            this.stop();
+        } else {
+            this.play();
+        }
+    }
+
+    play() {
+        if (this.audio) {
+            this.audio.currentTime = 0;
+            this.audio.play();
+        }
+        this.playing = true;
+    }
+
+    stop() {
+        if (this.audio) {
+            this.audio.pause();
+        }
+        this.playing = false;
     }
 }
 
@@ -25,7 +33,6 @@ export default {
     modules: [
         {
             name: "SpriteSound",
-            actorBehaviors: [SpriteSoundActor],
             pawnBehaviors: [SpriteSoundPawn]
         }
     ]
