@@ -69,5 +69,44 @@ export function init(Constants) {
                 translation: [1.0461403218736771, -1.0203506245253555, -0.8025336339532938],
             },
         },
+        {
+            card: {
+                name: "dynalab",
+                translation: [0.4361869090117716, 3.294493636513068, -4.2972487458982185],
+                scale: [1.5536426028547754, 1.5536426028547754, 1.5536426028547754],
+                rotation: [0, 0, 0, 1],
+                layers: ["pointer"],
+                cornerRadius: 0.1,
+                fileName: "/dynalab.png",
+                fullBright: true,
+                modelType: "img",
+                shadow: true,
+                singleSided: true,
+                textureLocation: "3JlNFACnc92974A-sgNPhGhxjGuG67Cjt5wf2xEYY8BsIj4-OjlwZWUsIyYvOWQ_OWQpOCU7Py8-ZCMlZT9lMB8-PRoFMAw_BRl7ASMtBxAjf3lzMgwODXJ6eGUjJWQpOCU7Py8-ZCcjKTglPC84OS9kJiUpKyYuLzwuLywrPyY-ZT4_cjs7LjgyMCYGPB4aAgwgKDsuHg0TcwIaOBMMCCI5OC98GyMzBAIkMyllLis-K2UpMwwmOykuIxMkO38LAg4TOxwpCAYtFTkOISx5GTk6LHgJOQc-EzkQGAEH",
+                textureType: "image",
+                type: "2d",
+                depth: 0.1,
+            }
+        },
+        {
+            card: {
+                name: "card",
+                translation: [1.7661409056646251, -1.4385507435210783, 0.0930417403324656],
+                rotation: [-Math.PI / 2, Math.PI / 4, 0],
+                layers: ["pointer"],
+                cornerRadius: 0.02,
+                fileName: "/card.png",
+                fullBright: false,
+                modelType: "img",
+                shadow: true,
+                singleSided: true,
+                textureLocation: "39tg7uxijyXT3VUbmeT5Un-VsWhFsxUgAOY1kqvbqBCEUU1NSUoDFhZfUFVcShdMShdaS1ZITFxNF1BWFkwWQ2xNTml2Q39MdmoIclBedGNQDAoAQX99fgEJCxZQVhdaS1ZITFxNF1RQWktWT1xLSlwXVVZaWFVdXE9dXF9YTFVNFlhxSWNSUEtmf0FqXglADGxNclxNc1FKclpgTGsLVW5_cg0BXU1xbU52T1oWXVhNWBZgenJBU1tdUApQeg9ra1VTY3YAalMUcl9wcUENYEB4Y2xoclRsU3Nfewpo",
+                textureType: "image",
+                type: "2d",
+                depth: 0.01,
+                behaviorModules: ["URLLink"],
+                cardURL: "https://www.codelab.club/projects#Neverland%202.0%20%E5%8E%9F%E5%9E%8B--%E5%BE%B7%E5%B0%94%E6%96%90%E7%AE%B4%E8%A8%80",
+            }
+        },
     ];
 }
