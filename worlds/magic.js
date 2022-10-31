@@ -5,7 +5,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/diverse";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js",
     ];
 
     Constants.DefaultCards = [
@@ -59,6 +59,15 @@ export function init(Constants) {
                 singleSided: true,
                 type: "3d",
             }
+        },
+        {
+            card: {
+                name: "crystal ball",
+                type: "object",
+                behaviorModules: ["Crystalball"],
+                layers: ["pointer"],
+                translation: [1.0461403218736771, -1.0203506245253555, -0.8025336339532938],
+            },
         },
     ];
 }
