@@ -110,5 +110,23 @@ export function init(Constants) {
                 cardURL: "https://www.codelab.club/projects#Neverland%202.0%20%E5%8E%9F%E5%9E%8B--%E5%BE%B7%E5%B0%94%E6%96%90%E7%AE%B4%E8%A8%80",
             }
         },
+        {
+            card: {
+                name: "stele",
+                translation: [4.471046189049282, 0.45557036920314344, -4.00426387435805],
+                scale: [3.4, 3.4, 3.4],
+                rotation: [0, -Math.PI / 4, 0],
+                layers: ["pointer"],
+                cornerRadius: 0.02,
+                fileName: "/stele.png",
+                fullBright: true,
+                modelType: "img",
+                shadow: true,
+                singleSided: true,
+                textureLocation: "3F9CXj0afFLwYxxmjcGcZZsG41_4vBfCThzoHHc6bGY0LjIyNjV8aWkgLyojNWgzNWglNCk3MyMyaC8paTNpPBMyMRYJPAAzCRV3DS8hCxwvc3V_PgACAX52dGkvKWglNCk3MyMyaCsvJTQpMCM0NSNoKiklJyoiIzAiIyAnMyoyaSEqFSgSdXAFdAgcKwpxEg4JLwAhFwIMCwh2NggCazUPHgoEPBAudTcAKyFpIicyJ2kpFRkwPhMMMX4VB3UycHUkGTwkED8SNT4FFHU-AX4NBy4JMzAXJ3QCcAUL",
+                textureType: "image",
+                type: "2d",
+            }
+        },
     ];
 }
