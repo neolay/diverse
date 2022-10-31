@@ -1,3 +1,9 @@
+// remixing
+// the world is inspired by "orbsimulator" (https://glitch.com/~orbsimulator).
+
+// assets
+// the wizard asset is adapted from the "Wizard and his Book." (https://skfb.ly/6TAoM) by muppe5 which is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+
 export function init(Constants) {
     Constants.AvatarNames = [
         "newwhite", "madhatter", "marchhare", "queenofhearts", "cheshirecat", "alice"
@@ -128,5 +134,21 @@ export function init(Constants) {
                 type: "2d",
             }
         },
+        {
+            card: {
+                name: "wizard",
+                translation: [3.6181361755451693, -0.8292153056074486, -0.3850201367319088],
+                rotation: [0, Math.PI / 4, 0],
+                scale: [0.8, 0.8, 0.8],
+                layers: ["pointer"],
+                dataLocation: "31Fu9eYPrsF3VTehoVLyyNbxrP-GxO043xMwzVVKL7TwWUVFQUILHh5XWF1UQh9EQh9SQ15ARFRFH1heHkQeS2RFRmF-S3dEfmIAelhWfGtYBAIISXd1dgkBAx5YXh9SQ15ARFRFH1xYUkNeR1RDQlQfXV5SUF1VVEdVVFdQRF1FHglrdmAHVmF9U3NTYWZLQAd_QF9iCBxyd1tdaAVZemRwUl9ZZQRpWVl2eVIeVVBFUB5_dwlCcElLdl5ie0l3XH5jdkd4Z3dJWn4IdX51ZEUceEkIfAB0UgVoSWVS",
+                dataScale: [0.13108587160180496, 0.13108587160180496, 0.13108587160180496],
+                fileName: "/wizard.glb.zip",
+                modelType: "zip",
+                shadow: true,
+                singleSided: true,
+                type: "3d",
+            }
+        }
     ];
 }
