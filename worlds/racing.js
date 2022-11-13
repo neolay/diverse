@@ -73,5 +73,40 @@ export function init(Constants) {
                 type: "object",
             }
         },
+        {
+            card: {
+                name: "dynalab",
+                translation: [7.1, 1.1, -10.4],
+                rotation: [0, -Math.PI / 2, 0],
+                scale: [1.5, 1.5, 1.5],
+                type: "2d",
+                textureType: "image",
+                textureLocation: "3BGpBXkpV9coWx6zMWorilvkUn4P856H2wYmCwKITE8wKjY2MjF4bW0kKy4nMWw3MWwhMC0zNyc2bCstbTdtOBc2NRINOAQ3DRFzCSslDxgrd3F7OgQGBXpycG0rLWwhMC0zNyc2bC8rITAtNCcwMSdsLi0hIy4mJzQmJyQjNy42bXMwFTIBACwUCRUYNyUGCB0dexQVLDUgATQFOjFyNilwKytwIHAdOwsTCg9tJiM2I20bCXEVDS8KAXEIDRc6czMrBHouFgcSJhcYKgp6DBcVdTUnNhoHCgRxBwcX",
+                fullBright: true,
+                frameColor: 0xcccccc,
+                color: 0xbbbbbb,
+                cornerRadius: 0.1,
+                depth: 0.05,
+                shadow: true,
+                behaviorModules: ["URLLink"],
+                cardURL: "https://github.com/dynalab-live",
+            }
+        },
+        {
+            card: {
+                name: "alice",
+                translation: [2.234392955258465, -0.6523754503004455, -0.5163266635056667],
+                scale: [0.42698682808571414, 0.42698682808571414, 0.42698682808571414],
+                rotation: [0, Math.PI, 0],
+                layers: ["pointer"],
+                dataLocation: "30hu3n--alpLJIMDzvTbHl8E27n0N7PU4oDBPiyOaOU4WEREQEMKHx9WWVxVQx5FQx5TQl9BRVVEHllfH0UfSmVER2B_SnZFf2MBe1lXfWpZBQMJSHZ0dwgAAh9ZXx5TQl9BRVVEHl1ZU0JfRlVCQ1UeXF9TUVxUVUZUVVZRRVxEHwNpVHx_ZWpReQNxQUR-fWh9VlRpBAdJRFZqRV4Je3xSVwBvSkkAd1N8SnEfVFFEUR9oY0ZHf294YQZUU1tEeGVEaVdpQAFRR3h_eWN-UwFmRkJoZkNpY1QCW111",
+                dataScale: [0.5937912363848868, 0.5937912363848868, 0.5937912363848868],
+                fileName: "/alice.zip",
+                modelType: "zip",
+                shadow: true,
+                singleSided: true,
+                type: "3d",
+            }
+        },
     ];
 }
