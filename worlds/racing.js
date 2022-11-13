@@ -5,7 +5,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/diverse";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js", "curve.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js", "curve.js", "circle.js"
     ];
 
     Constants.DefaultCards = [
@@ -44,6 +44,25 @@ export function init(Constants) {
                 translation: [-1, 0.4, -4],
                 behaviorModules: ["Curve"],
                 type: "object",
+            }
+        },
+        {
+            card: {
+                name: "drone",
+                translation: [-3, 1, -6],
+                rotation: [0, 0, 0, 1],
+                layers: ["pointer"],
+                animationClipIndex: 0,
+                animationStartTime: 27404,
+                dataLocation: "3ICiyF6V8TnM0tqBRz8HP_OoiiN-U5UmFMF0kXDejrTEIT09OTpzZmYvICUsOmc8OmcqOyY4PCw9ZyAmZjxmMxw9PhkGMw88Bhp4AiAuBBMgfHpwMQ8NDnF5e2YgJmcqOyY4PCw9ZyQgKjsmPyw7OixnJSYqKCUtLD8tLC8oPCU9Zh4LLjoWLAw5HzscETsaOAsWCHEjBAMHEQ15HB8gEBMjCy16JCYALgQlAnFmLSg9KGYoDX56FgI5GHkrECUdHzh4PgEDDg0KfwsrJnowEwceHjM5AXszeiUsKgN5",
+                scale: [0.05, 0.05, 0.05],
+                fileName: "/tello.glb.zip",
+                modelType: "zip",
+                shadow: true,
+                singleSided: true,
+                type: "3d",
+                behaviorModules: ["Circle"],
+                // "Dji Tello" (https://skfb.ly/osWOS) by Temoor is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
             }
         },
     ];
