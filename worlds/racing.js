@@ -5,7 +5,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/diverse";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js", "curve.js", "circle.js"
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js", "curve.js", "circle.js", "openPortal.js",
     ];
 
     Constants.DefaultCards = [
@@ -63,6 +63,14 @@ export function init(Constants) {
                 type: "3d",
                 behaviorModules: ["Circle"],
                 // "Dji Tello" (https://skfb.ly/osWOS) by Temoor is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+            }
+        },
+        {
+            card: {
+                name: "portal button",
+                translation: [-12.471031225946103, 1.05, -5.207379803842383],
+                behaviorModules: ["OpenPortalButton"],
+                type: "object",
             }
         },
     ];
