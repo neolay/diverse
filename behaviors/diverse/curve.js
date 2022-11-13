@@ -70,7 +70,7 @@ class ObjectToCurvePawn {
         const assetName = this.actor._cardData.assetName || "car1.glb";
         const assetScale = this.actor._cardData.assetScale || [1, 1, 1];
 
-        const gltfLoader = new THREE.GLTFLoader().setPath("../assets/3D/");
+        const gltfLoader = new THREE.GLTFLoader().setPath("./assets/3D/");
         gltfLoader.load(assetName, (gltf) => {
             this.car = gltf.scene;
             this.car.scale.set(...assetScale);
