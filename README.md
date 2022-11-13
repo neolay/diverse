@@ -17,3 +17,4 @@ Live: https://neolay.github.io/diverse
 ## Worlds
 - [Pixel world](https://neolay.github.io/diverse/?world=pixel)
 - [Magic world](https://neolay.github.io/diverse/?world=magic)
+- [racing world](https://neolay.github.io/diverse/?world=racing)
