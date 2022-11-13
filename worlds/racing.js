@@ -110,3 +110,7 @@ export function init(Constants) {
         },
     ];
 }
+
+// car assets
+// car1: "Lightning Mcqueen" (https://skfb.ly/oxWZR) by Garu is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+// car2: "3DS - Nintendogs Cats - Yoshi Kart" (https://skfb.ly/ozNJp) by Garu is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).

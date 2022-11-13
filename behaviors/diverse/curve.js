@@ -1,6 +1,6 @@
 class CurveActor {
     setup() {
-        const path = [
+        const path1 = [
             {x: -5.6, y: -1.1, z: -9.6},
             {x: -5.6, y: -1.1, z: -8.3},
             {x: 2, y: -1.1, z: -8},
@@ -8,6 +8,16 @@ class CurveActor {
             {x: 3.4, y: -1.1, z: -12.3},
             {x: 2.5, y: -1.1, z: -12.7},
             {x: -1.9, y: -1.1, z: -11.1},
+        ];
+
+        const path2 = [
+            {x: 3.4, y: -1.1, z: -12.3},
+            {x: 2.5, y: -1.1, z: -12.7},
+            {x: -1.9, y: -1.1, z: -11.1},
+            {x: -5.6, y: -1.1, z: -9.6},
+            {x: -5.6, y: -1.1, z: -8.3},
+            {x: 2, y: -1.1, z: -8},
+            {x: 2.9, y: -1.1, z: -9.2},
         ];
 
         // for (const handlePos of path) {
@@ -24,7 +34,19 @@ class CurveActor {
             name: "car",
             type: "object",
             layers: ["pointer"],
-            path: path,
+            path: path1,
+            assetName: "car1.glb",
+            assetScale: [0.1, 0.1, 0.1],
+            behaviorModules: ["ObjectToCurve"],
+        });
+
+        this.createCard({
+            name: "car2",
+            type: "object",
+            layers: ["pointer"],
+            path: path2,
+            assetName: "car2.glb",
+            assetScale: [0.4, 0.4, 0.4],
             behaviorModules: ["ObjectToCurve"],
         });
     }
@@ -45,10 +67,13 @@ class ObjectToCurvePawn {
     setup() {
         this.loopTime = 5 * 1000;
 
+        const assetName = this.actor._cardData.assetName || "car1.glb";
+        const assetScale = this.actor._cardData.assetScale || [1, 1, 1];
+
         const gltfLoader = new THREE.GLTFLoader().setPath("../assets/3D/");
-        gltfLoader.load("car1.glb", (gltf) => {
+        gltfLoader.load(assetName, (gltf) => {
             this.car = gltf.scene;
-            this.car.scale.set(0.1, 0.1, 0.1);
+            this.car.scale.set(...assetScale);
             this.shape.add(this.car);
             this.listen("updateCar", this.update);
         });
