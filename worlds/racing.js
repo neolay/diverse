@@ -5,7 +5,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/diverse";
     Constants.UserBehaviorModules = [
-        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js",
+        "lights.js", "sound.js", "throb.js", "urlLink.js", "simpleSpin.js", "text3D.js", "replaceWorld.js", "crystalball.js", "curve.js"
     ];
 
     Constants.DefaultCards = [
@@ -37,6 +37,14 @@ export function init(Constants) {
                 dataLocation: "./assets/sky/shanghai_riverside_2k.exr",
                 dataType: "exr",
             }
-        }
+        },
+        {
+            card: {
+                name: "curve box",
+                translation: [-1, 0.4, -4],
+                behaviorModules: ["Curve"],
+                type: "object",
+            }
+        },
     ];
 }
